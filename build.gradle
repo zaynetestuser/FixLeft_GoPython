@@ -1,0 +1,34 @@
+plugins {
+    id 'groovy'
+    id 'application'
+    id 'com.gradleup.shadow' version '9.1.0'
+}
+
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+base.archivesName = 'gradle-example'
+
+dependencies {
+    // Groovy BOM
+    implementation platform('org.apache.groovy:groovy-bom:5.+')
+    implementation platform('commons-io:commons-io:2.5')
+    implementation platform('com.google.code.gson:gson:2.8.2')
+
+    // Groovy module dependency
+    implementation 'org.apache.groovy:groovy-json'
+
+    // Strictly exact version of Maven dependency
+    implementation 'com.codevineyard:hello-world:1.0.1!!'
+
+    // Dependency from local jar
+    implementation ':simple-jar'
+}
+
+application {
+    mainClass = 'com.adjectivecolournoun.gradle.Greetz'
+}
